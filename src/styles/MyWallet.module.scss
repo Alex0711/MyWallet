@@ -1,0 +1,67 @@
+@import 'vars';
+ 
+.my-wallet{
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*   Wallet   */
+.my-wallet-content{
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: $--text-input-field;
+    border-radius: 8px;
+    padding: 8px 24px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+.my-wallet-content :nth-child(2){
+    height: 24px;
+}
+.money{
+    display: flex;
+}
+.my-money{
+    font-size: $--md;
+    font-weight: bold;
+    margin-left: 8px;
+}
+.symbol{
+    color: $--very-light-pink;
+    font-size: $--md;
+}
+.eye{
+    cursor: pointer;
+}
+.buttons-container{
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+}
+.primary-button{
+    border-radius: 8px;
+    border: none;
+    color: $--white;
+    width: 40%;
+    cursor: pointer; /*Hace la manito*/
+    font-size: $--md;
+    font-weight: bold;
+    height: 48px;
+}
+.payment{
+    background-color: $--red;
+
+}
+.entry{
+    background-color: $--hospital-green;
+}
+
+@media (min-width: 640px) {
+    .my-wallet{
+        padding-top: 120px;
+    }
+}
