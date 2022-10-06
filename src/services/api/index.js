@@ -7,6 +7,9 @@ const endPoints = {
     getUser: (id) => `${API}/${VERSION}/users/${id}`,
   },
   users: `${API}/${VERSION}/users`,
+  wallet: {
+    postOperation: (id) => `${API}/${VERSION}/wallet/${id}`,
+  },
 };
 
 export default endPoints;

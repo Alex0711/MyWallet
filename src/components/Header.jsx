@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-// import Menu from '@components/Menu';
-import menu from '@icons/icon_menu.svg';
+import React, { useState } from 'react';
+import Menu from '@components/Menu';
 // import AppContext from '../context/AppContext';
 import { useAuth } from '@hooks/useAuth';
 import styles from '@styles/Header.module.scss';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Header = () => {
-  // const { state, toggleMenu } = useContext(AppContext);
+  const [menu, setMenu] = useState(false);
   const auth = useAuth();
 
   const userData = {
@@ -18,20 +18,24 @@ const Header = () => {
     <>
       <nav className={styles.nav}>
         <div className={styles['navbar-left']}>
-          <p>MyWallet</p>
-          <ul>
-            <li>{userData?.email && <p>Payments</p>}</li>
-            <li>{userData?.email && <p>Entries</p>}</li>
-          </ul>
+          <p>
+            <Link href="/">MyWallet</Link>
+          </p>
         </div>
         <div className={styles['navbar-right']}>
           <ul>
-            <li className={styles['navbar-email']} onClick={() => toggleMenu()}>
-              {userData?.email && <p>{userData?.email}</p>}
-            </li>
-            <li className={styles['navbar-shopping-cart']}>
+            <li className={styles['navbar-email']}>{userData?.email && <>{userData?.email}</>}</li>
+            <li className={styles['navbar-wallet']}>
               {userData?.email ? (
-                <p onClick={() => auth.logout()}>LogOut</p>
+                <Image
+                  onClick={() => setMenu(!menu)}
+                  layout="fixed"
+                  width={20}
+                  height={20}
+                  className={styles.eye}
+                  src="http://drive.google.com/uc?export=view&id=1rMotb7L-_6nr-aoQa6BRQtTCI8fNPRIr"
+                  alt="ojo"
+                />
               ) : (
                 <p>
                   <Link href={'/login'}>Log in</Link>
@@ -43,14 +47,13 @@ const Header = () => {
                 <div></div>
               ) : (
                 <p>
-                  {' '}
                   <Link href={'/signup'}>Sign up</Link>{' '}
                 </p>
               )}
             </li>
           </ul>
         </div>
-        {/* {state.menuIsOpen && <Menu />} */}
+        {menu && <Menu />}
       </nav>
     </>
   );

@@ -1,38 +1,32 @@
 import React, { useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import styles from '@styles/Login.module.scss';
-import logo from '@logos/logo_yard_sale.svg';
-import { useAuth } from '@hooks/useAuth';
+import Image from 'next/image';
+import { useOperation } from '@hooks/useOperation';
+import styles from '@styles/NewOperation.module.scss';
 
-const OperationForm = () => {
+const OperationForm = ({ operationType, setForm }) => {
+  const operations = useOperation();
   const form = useRef(null);
-  const auth = useAuth();
   const [errorLogin, setErrorLogin] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     setLoading('...');
     setErrorLogin(false);
     event.preventDefault();
     const formData = new FormData(form.current);
-    const data = {
-      email: formData.get('email'),
-      password: formData.get('password'),
-      confirmPassword: formData.get('confirm password'),
+    const newOperation = {
+      type: operationType,
+      concept: formData.get('concept'),
+      amount: formData.get('amount'),
     };
-    auth
-      .signUp(data.email, data.password, data.confirmPassword)
+    operations
+      .post(newOperation.type, newOperation.concept, newOperation.amount)
       .then(() => {
-        router.push('/');
+        setForm(false);
       })
       .catch((error) => {
         console.log(error);
-        if (error.response.data.message === 'email must be unique') {
-          setErrorLogin('An account already exists with this email');
-        } else {
-          setErrorLogin(error.response.data.message);
-        }
+        setErrorLogin(error);
       })
       .finally(() => {
         setLoading(false);
@@ -40,26 +34,48 @@ const OperationForm = () => {
   };
 
   return (
-    <div className={styles.form}>
+    <div className={styles['operation-form']}>
       <div className={styles['form-container']}>
-        <img src={logo} alt="logo" className={styles.logo} />
+        <Image
+          onClick={() => setForm(false)}
+          layout="fixed"
+          width={20}
+          height={20}
+          className={styles.close}
+          src="http://drive.google.com/uc?export=view&id=1NHR0VhB7RlM4dW9thiNCjU1NqgClOPLa"
+          alt="X"
+        />
         <form action="/" className={styles.form} ref={form}>
-          <label htmlFor="email" className={styles.label}>
-            Email address
+          <h1>New {operationType}</h1>
+          <label htmlFor="concept" className={styles.label}>
+            Concept
           </label>
-          <input type="text" name="email" placeholder="example@example.com" className={`${styles.input} ${styles['input-email']}`} />
-          <label htmlFor="password" className={styles.label}>
-            Password
+          <select name="concept" className={`${styles.input} ${styles['input-concept']}`}>
+            {operationType === 'entry' ? (
+              <>
+                <option>salary</option>
+                <option>sales</option>
+              </>
+            ) : (
+              <>
+                <option>food</option>
+                <option>services</option>
+                <option>clothing</option>
+                <option>entertainment</option>
+                <option>home</option>
+                <option>health</option>
+              </>
+            )}
+            <option>others</option>
+          </select>
+          <label htmlFor="amount" className={styles.label}>
+            Amount
           </label>
-          <input type="password" name="password" placeholder="*********" className={`${styles.input} ${styles['input-password']}`} />
-          <label htmlFor="password" className={styles.label}>
-            Password
-          </label>
-          <input type="password" name="confirm password" placeholder="*********" className={`${styles.input} ${styles['input-password']}`} />
+          <input type="number" min="0" name="amount" className={`${styles.input} ${styles['input-amount']}`} />
           {errorLogin && <div className={styles.error}> {errorLogin} </div>}
           {loading && <div className={styles.loading}> {loading} </div>}
           <button onClick={submitHandler} className={`${styles['primary-button']} ${styles['login-button']}`}>
-            Sign UP
+            Send
           </button>
         </form>
       </div>
