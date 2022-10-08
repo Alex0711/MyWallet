@@ -14,6 +14,14 @@ const Header = () => {
     email: auth?.user?.email,
     wallet: auth?.user?.wallet?.id,
   };
+
+  if (!userData.email) {
+    try {
+      auth.fetchUser();
+    } catch (err) {
+      console.error(err);
+    }
+  }
   return (
     <>
       <nav className={styles.nav}>

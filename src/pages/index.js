@@ -15,8 +15,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log(operations);
-    console.log(typeof operations);
     async function getUser() {
       await auth.fetchUser();
       setOperations(auth?.user?.wallet?.operations);

@@ -11,6 +11,7 @@ const endPoints = {
     postOperation: (id) => `${API}/${VERSION}/wallet/${id}`,
     deleletOperation: (id) => `${API}/${VERSION}/operations/${id}`,
     patchOperation: (id) => `${API}/${VERSION}/operations/${id}`,
+    getOperation: (id) => `${API}/${VERSION}/operations/${id}`,
     getEntries: (id) => `${API}/${VERSION}/users/${id}/entries`,
     getPayments: (id) => `${API}/${VERSION}/users/${id}/payments`,
   },

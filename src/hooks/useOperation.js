@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from './useAuth';
 import endPoints from 'services/api';
+import Cookies from 'js-cookie';
 
 export const useOperation = () => {
   const [entries, setEntries] = useState(null);
@@ -47,10 +48,24 @@ export const useOperation = () => {
     }
   }, [auth?.user?.id]);
 
+  const getOperation = async (id) => {
+    try {
+      const token = Cookies.get('token');
+
+      if (token) {
+        axios.defaults.headers.Authorization = `Bearer ${token}`;
+        const { data } = await axios.get(endPoints.wallet.getOperation(id));
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getEntries();
     getPayments();
   }, [auth?.user?.id, getEntries, getPayments]);
 
-  return { post, deleteOperation, update, entries, payments };
+  return { post, deleteOperation, update, getOperation, entries, payments };
 };
