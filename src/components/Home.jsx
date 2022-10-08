@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className={styles.Home}>
       <div className={styles['Home-container']}>
-        <p className={styles.message}>Welcome! This app was developed for the Alkemy challenge. Try to login, or create an account if you don't have one yet </p>
+        <p className={styles.message}>Welcome! This app was developed for the Alkemy challenge. Try to login, or create an account if you do not have one yet </p>
       </div>
     </div>
   );

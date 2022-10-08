@@ -4,20 +4,9 @@ const nextConfig = {
   images: {
     domains: ['drive.google.com'],
   },
-  // swcMinify: true,
-  // env: {
-  //   customKey: 'customValue',
-  // },
-  // basePath: '/dist',
-  // compress: true,
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/hola',
-  //       destination: '/hello',
-  //     }
-  //   ]
-  // }
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;

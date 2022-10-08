@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '@styles/Login.module.scss';
-import logo from '@logos/logo_yard_sale.svg';
 import { useAuth } from '@hooks/useAuth';
 
 const Login = () => {
@@ -41,7 +40,6 @@ const Login = () => {
   return (
     <div className={styles.Login}>
       <div className={styles['Login-container']}>
-        <img src={logo} alt="logo" className={styles.logo} />
         <form action="/" className={styles.form} ref={form}>
           <label htmlFor="email" className={styles.label}>
             Email address

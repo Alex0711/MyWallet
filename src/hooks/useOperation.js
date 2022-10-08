@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from './useAuth';
 import endPoints from 'services/api';
@@ -33,24 +33,24 @@ export const useOperation = () => {
     location.reload();
   };
 
-  const getEntries = async () => {
+  const getEntries = useCallback(async () => {
     if (auth?.user?.id) {
       const { data } = await axios.get(endPoints.wallet.getEntries(auth?.user?.id));
       setEntries(data.wallet.operations);
     }
-  };
+  }, [auth?.user?.id]);
 
-  const getPayments = async () => {
+  const getPayments = useCallback(async () => {
     if (auth?.user?.id) {
       const { data } = await axios.get(endPoints.wallet.getPayments(auth?.user?.id));
       setPayments(data.wallet.operations);
     }
-  };
+  }, [auth?.user?.id]);
 
   useEffect(() => {
     getEntries();
     getPayments();
-  }, [auth?.user?.id]);
+  }, [auth?.user?.id, getEntries, getPayments]);
 
   return { post, deleteOperation, update, entries, payments };
 };
