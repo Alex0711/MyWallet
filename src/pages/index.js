@@ -15,8 +15,18 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setOperations(auth?.user?.wallet?.operations);
-  }, [auth?.user?.wallet?.operations, operations]);
+    console.log(operations);
+    console.log(typeof operations);
+    async function getUser() {
+      await auth.fetchUser();
+      setOperations(auth?.user?.wallet?.operations);
+    }
+    try {
+      getUser();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [typeof operations]);
 
   useEffect(() => {
     setUserId(Cookies.get('userId'));
