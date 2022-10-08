@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     setOperations(auth?.user?.wallet?.operations);
-  }, [auth?.user?.wallet?.operations]);
+  }, [auth?.user?.wallet?.operations, operations]);
 
   useEffect(() => {
     setUserId(Cookies.get('userId'));
