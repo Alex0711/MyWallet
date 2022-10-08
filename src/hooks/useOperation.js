@@ -1,21 +1,56 @@
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from './useAuth';
 import endPoints from 'services/api';
 
 export const useOperation = () => {
+  const [entries, setEntries] = useState(null);
+  const [payments, setPayments] = useState(null);
+  const router = useRouter();
   const auth = useAuth();
   const walletId = auth?.user?.wallet?.id;
+  const options = {
+    Headers: {
+      accept: '*/*',
+      'Content-Type': 'application/json',
+    },
+  };
 
   const post = async (type, concept, amount) => {
-    const options = {
-      Headers: {
-        accept: '*/*',
-        'Content-Type': 'application/json',
-      },
-    };
-    const { data } = await axios.post(endPoints.wallet.postOperation(walletId), { type, concept, amount }, options);
+    await axios.post(endPoints.wallet.postOperation(walletId), { type, concept, amount }, options);
     location.reload();
-    console.log('data en useOperation: ', data);
   };
-  return { post };
+
+  const deleteOperation = async (id) => {
+    await axios.delete(endPoints.wallet.deleletOperation(id), options);
+    await router.push('/');
+    location.reload();
+  };
+
+  const update = async (id, type, concept, amount) => {
+    await axios.patch(endPoints.wallet.patchOperation(id), { type, concept, amount }, options);
+    location.reload();
+  };
+
+  const getEntries = async () => {
+    if (auth?.user?.id) {
+      const { data } = await axios.get(endPoints.wallet.getEntries(auth?.user?.id));
+      setEntries(data.wallet.operations);
+    }
+  };
+
+  const getPayments = async () => {
+    if (auth?.user?.id) {
+      const { data } = await axios.get(endPoints.wallet.getPayments(auth?.user?.id));
+      setPayments(data.wallet.operations);
+    }
+  };
+
+  useEffect(() => {
+    getEntries();
+    getPayments();
+  }, [auth?.user?.id]);
+
+  return { post, deleteOperation, update, entries, payments };
 };

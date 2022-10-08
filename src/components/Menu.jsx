@@ -3,21 +3,25 @@ import Link from 'next/link';
 import { useAuth } from '@hooks/useAuth';
 import styles from '@styles/Menu.module.scss';
 
-const Menu = () => {
+const Menu = ({ setMenu }) => {
   const auth = useAuth();
   return (
     <div className={styles.Menu}>
       <ul>
         <li>
           <Link href="/operations" className={styles.title}>
-            Operations
+            <p onClick={() => setMenu(false)}>Operations</p>
           </Link>
         </li>
         <li>
-          <Link href="/payments">Payments</Link>
+          <Link href="/payments">
+            <p onClick={() => setMenu(false)}>Payments</p>
+          </Link>
         </li>
         <li>
-          <Link href="/entries">Entries</Link>
+          <Link href="/entries">
+            <p onClick={() => setMenu(false)}>Entries</p>
+          </Link>
         </li>
         <li>
           <p onClick={() => auth.logout()}>Log out</p>

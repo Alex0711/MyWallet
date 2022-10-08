@@ -9,6 +9,7 @@
   top: 0;
   background: white;
   width: 100%;
+  z-index: 3;
 }
 .menu {
   display: none;
@@ -26,9 +27,8 @@
   height: 60px;
 }
 .navbar-left {
-  display: flex;
-  width: calc(50% + 79px);
-  justify-content: space-between;
+  color: $--hospital-green;
+  font-weight: bold;
 }
 .navbar-left ul {
   margin-left: 12px;

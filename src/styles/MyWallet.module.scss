@@ -1,13 +1,16 @@
 @import 'vars';
  
 .my-wallet{
-    padding-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 /*   Wallet   */
+.my-wallet-container{
+    background-color: $--text-input-field;
+    border-radius: 8px;
+}
 .my-wallet-content{
     width: 300px;
     display: flex;
@@ -15,8 +18,7 @@
     justify-content: space-between;
     background-color: $--text-input-field;
     border-radius: 8px;
-    padding: 8px 24px;
-    margin-bottom: 20px;
+    padding: 8px 24px 0px;
     align-items: center;
 }
 .my-wallet-content :nth-child(2){
@@ -41,27 +43,26 @@
     width: 300px;
     display: flex;
     justify-content: space-around;
+    margin-bottom: 12px;
 }
 .primary-button{
     border-radius: 8px;
-    border: none;
-    color: $--white;
+    background-color: white;
     width: 40%;
-    cursor: pointer; /*Hace la manito*/
-    font-size: $--md;
+    height: 36px;
+    font-size: $--sm;
     font-weight: bold;
-    height: 48px;
+
+    cursor: pointer;
 }
 .payment{
-    background-color: $--red;
-
+    border: 1px solid $--red;
 }
 .entry{
-    background-color: $--hospital-green;
+    border: 1px solid $--hospital-green;
 }
 
 @media (min-width: 640px) {
     .my-wallet{
-        padding-top: 120px;
     }
 }

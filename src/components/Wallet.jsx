@@ -37,14 +37,14 @@ function Wallet({ money }) {
             />
           )}
         </div>
-      </div>
-      <div className={styles['buttons-container']}>
-        <button onClick={() => setForm('payment')} className={`${styles['primary-button']} ${styles.payment}`}>
-          Payment
-        </button>
-        <button onClick={() => setForm('entry')} className={`${styles['primary-button']} ${styles.entry}`}>
-          Entry
-        </button>
+        <div className={styles['buttons-container']}>
+          <button onClick={() => setForm('payment')} className={`${styles['primary-button']} ${styles.payment}`}>
+            Payment
+          </button>
+          <button onClick={() => setForm('entry')} className={`${styles['primary-button']} ${styles.entry}`}>
+            Entry
+          </button>
+        </div>
       </div>
       {form && <OperationForm operationType={form} setForm={setForm} />}
     </div>

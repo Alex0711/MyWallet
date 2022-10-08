@@ -53,7 +53,7 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        {menu && <Menu />}
+        {menu && <Menu setMenu={setMenu} />}
       </nav>
     </>
   );
